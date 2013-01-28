@@ -9,6 +9,12 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+config = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
+config.merge! config.fetch(Rails.env, {})
+config.each do |key, value|
+  ENV[key] = value.to_s unless value.kind_of? Hash
+end
+
 module Blog
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -58,5 +64,7 @@ module Blog
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.action_mailer.default_url_options = {host: ENV["MAILER_HOST"]}
   end
 end

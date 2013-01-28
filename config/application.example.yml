@@ -1,0 +1,9 @@
+BLOG_USERNAME: "the username"
+BLOG_PASSWORD: "the password"
+SECRET_TOKEN: "the token"
+development:
+  MAILER_HOST: "localhost:3000"
+test:
+  MAILER_HOST: "test.local"
+production:
+  MAILER_HOST: "blog.example.com"
